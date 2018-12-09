@@ -1,0 +1,58 @@
+import sqlite3
+import pandas
+import webbrowser, os
+
+
+def tableUsers():
+    conn = sqlite3.connect('SOYP Project.db')
+    c = conn.cursor()
+    c.execute('''SELECT * from Users''')
+    row = c.fetchone()
+    listUser = []
+
+    while row is not None:
+        listUser.append(row)
+        row = c.fetchone()
+    df = pandas.DataFrame(listUser,
+                          columns=["Email", "Password", "First Name", "Last Name", "TOS", "Birthday", "Forgot Code"])
+    df.to_html(r'C:\Users\jiang\PycharmProjects\SOYP\TableUsers.html')
+    webbrowser.open('file://' + os.path.realpath('TableUsers.html'))
+
+
+tableUsers()
+
+
+def tableUsage():
+    conn = sqlite3.connect('SOYP Project.db')
+    c = conn.cursor()
+    c.execute('''SELECT * from Usage''')
+    row = c.fetchone()
+    listUsage = []
+
+    while row is not None:
+        listUsage.append(row)
+        row = c.fetchone()
+    df = pandas.DataFrame(listUsage, columns=["Email", "User ID", "Date", "App", "Restriction Time", "Summary"])
+    df.to_html(r'C:\Users\jiang\PycharmProjects\SOYP\TableUsage.html')
+    webbrowser.open('file://' + os.path.realpath('TableUsage.html'))
+
+
+tableUsage()
+
+
+def tableNotification():
+    conn = sqlite3.connect('SOYP Project.db')
+    c = conn.cursor()
+    c.execute('''SELECT * from Notification''')
+    row = c.fetchone()
+    listNotif = []
+
+    while row is not None:
+        listNotif.append(row)
+        row = c.fetchone()
+    df = pandas.DataFrame(listNotif, columns=["User ID", "Message"])
+    df.to_html(r'C:\Users\jiang\PycharmProjects\SOYP\TableNotif.html')
+    webbrowser.open('file://' + os.path.realpath('TableNotif.html'))
+
+
+tableNotification()
